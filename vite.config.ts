@@ -23,7 +23,7 @@ export default defineConfig({
           libraryName: 'element-plus',
           esModule: true,
           resolveStyle: (name) => {
-            return `element-plus/lib/theme-chalk/${name}.css`
+            return `element-plus/theme-chalk/${name}.css`
           }
         }
       ]

@@ -10,7 +10,9 @@
         <el-tab-pane name="account">
           <template #label>
             <div class="label">
-              <el-icon><UserFilled /></el-icon>
+              <el-icon>
+                <UserFilled />
+              </el-icon>
               <span class="text">帐号登录</span>
             </div>
           </template>
@@ -21,7 +23,9 @@
         <el-tab-pane name="phone">
           <template #label>
             <div class="label">
-              <el-icon><Cellphone /></el-icon>
+              <el-icon>
+                <Cellphone />
+              </el-icon>
               <span class="text">手机登录</span>
             </div>
           </template>
@@ -32,15 +36,10 @@
 
     <!-- 底部区域 -->
     <div class="controls">
-      <el-checkbox  label="记住密码" size="large" />
+      <el-checkbox label="记住密码" size="large" />
       <el-link type="primary">忘记密码</el-link>
     </div>
-    <el-button
-      class="login-btn"
-      type="primary"
-      size="large"
-      @click="handleLoginBtnClick"
-    >
+    <el-button class="login-btn" type="primary" size="large" @click="handleLoginBtnClick">
       立即登录
     </el-button>
   </div>
@@ -60,7 +59,7 @@ watch(isRemPwd, (newValue) => {
 
 const accountRef = ref<InstanceType<typeof PaneAccount>>()
 
-const handleLoginBtnClick = ()=> {
+const handleLoginBtnClick = () => {
   if (activeName.value === 'account') {
     accountRef.value?.loginAction(isRemPwd.value)
   } else {

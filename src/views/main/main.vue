@@ -1,25 +1,22 @@
 <template>
-  <div>
-    <div>
-      <el-button :icon="Search" circle />
-      <el-button type="primary" :icon="Edit" circle />
-      <el-button type="success" :icon="Check" circle />
-      <el-button type="info" :icon="Message" circle />
-      <el-button type="warning" :icon="Star" circle />
-      <el-button type="danger" :icon="Delete" circle />
-    </div>
+  <div class="main">
+    <el-container>
+      <el-aside width="200px">
+        <main-menu></main-menu>
+      </el-aside>
+      <el-container>
+        <el-header>
+          <main-header></main-header>
+        </el-header>
+        <el-main>Main</el-main>
+      </el-container>
+    </el-container>
   </div>
 </template>
 
 <script setup lang="ts">
-import {
-  Check,
-  Delete,
-  Edit,
-  Message,
-  Search,
-  Star,
-} from '@element-plus/icons-vue'
+import MainHeader from '@/components/main-header/main-header.vue';
+import MainMenu from '@/components/main-menu/main-menu.vue';
 import hyRequest from '@/service';
 hyRequest.request({
 }).then(res => {
@@ -27,5 +24,4 @@ hyRequest.request({
 })
 </script>
 
-<style lang="less" scoped>
-</style>
+<style lang="less" scoped></style>

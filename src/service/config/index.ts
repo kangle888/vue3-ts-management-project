@@ -11,9 +11,9 @@ console.log(import.meta.env.SSR) // 是否是服务器端渲染(server side rend
 
 let BASE_URL = ''
 if (import.meta.env.PROD) {
-  BASE_URL = 'http://codercba.prod:8000'
+  BASE_URL = 'http://152.136.185.210:4000'
 } else {
-  BASE_URL = 'http://coderwhy.dev:8000'
+  BASE_URL = 'http://152.136.185.210:4000'
 }
 
 console.log(BASE_URL)

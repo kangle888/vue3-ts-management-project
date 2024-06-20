@@ -1,13 +1,6 @@
 <template>
   <div class="pane-account">
-    <el-form
-      :model="account"
-      :rules="accountRules"
-      label-width="60px"
-      size="large"
-      status-icon
-      ref="formRef"
-    >
+    <el-form :model="account" :rules="accountRules" label-width="60px" size="large" status-icon ref="formRef">
       <el-form-item label="帐号" prop="name">
         <el-input v-model="account.name" />
       </el-form-item>
@@ -22,7 +15,7 @@
 import { reactive, ref } from 'vue'
 import { ElMessage } from 'element-plus'
 import type { FormRules, ElForm } from 'element-plus'
-import  useLoginStore  from '@/store/login/login'
+import useLoginStore from '@/store/login/login'
 import type { IAccount } from '@/types'
 import { localCache } from '@/utils/cache'
 
@@ -31,8 +24,8 @@ const CACHE_PASSWORD = 'password'
 
 // 1.定义account数据
 const account = reactive<IAccount>({
-  name: localCache.getCache(CACHE_NAME) ?? '',
-  password: localCache.getCache(CACHE_PASSWORD) ?? ''
+  name: '',
+  password: ''
 })
 
 // 2.定义校验规则
@@ -59,7 +52,7 @@ const accountRules: FormRules = {
 const formRef = ref<InstanceType<typeof ElForm>>()
 const loginStore = useLoginStore()
 
-const loginAction = (isRemPwd: boolean)=> {
+const loginAction = (isRemPwd: boolean) => {
   formRef.value?.validate((valid) => {
     if (valid) {
       // 1.获取用户输入的帐号和密码
