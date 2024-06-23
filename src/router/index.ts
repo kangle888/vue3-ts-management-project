@@ -27,17 +27,17 @@ const router = createRouter({
 
 // 导航守卫
 
-// router.beforeEach((to, from, next) => {
-//   if (to.path !== '/login') {
-//     const token = localStorage.getItem(LOGIN_TOKEN)
-//     if (!token) {
-//       next('/login')
-//     } else {
-//       next()
-//     }
-//   } else {
-//     next()
-//   }
-// })
+router.beforeEach((to, from, next) => {
+  if (to.path !== '/login') {
+    const token = localStorage.getItem(LOGIN_TOKEN)
+    if (!token) {
+      next('/login')
+    } else {
+      next()
+    }
+  } else {
+    next()
+  }
+})
 
 export default router
