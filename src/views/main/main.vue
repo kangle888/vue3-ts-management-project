@@ -9,7 +9,10 @@
           <!--父组件接收自定义事件 -->
           <main-header @fold-change="handleFoldChange"></main-header>
         </el-header>
-        <el-main>Main</el-main>
+        <el-main>
+          <!-- main页面的路由 -->
+          <router-view> </router-view>
+        </el-main>
       </el-container>
     </el-container>
   </div>

@@ -9,7 +9,7 @@
         text-color="#b7bdc3"
         active-text-color="#fff"
         background-color="#001529"
-        default-active="1"
+        :default-active="defaultActive"
         :collapse="isFold"
       >
         <template v-for="menu in userMeusList" :key="menu.id">
@@ -33,7 +33,9 @@
 
 <script setup lang="ts">
 import userLoginStore from '@/store/login/login'
+import { firstMenu, pathMapToMenu } from '@/utils/map-menus'
 import { ref } from 'vue'
+import { useRoute } from 'vue-router'
 
 defineProps({
   isFold: {
@@ -84,6 +86,11 @@ const userMeusList = ref([
     ]
   }
 ])
+
+// el-menu 默认选中菜单
+const route = useRoute()
+pathMapToMenu(userMeus, route.path)
+const defaultActive = ref(firstMenu.id + '')
 </script>
 
 <style lang="less" scoped>
