@@ -31,22 +31,23 @@ const useLoginStore = defineStore('login', {
       // 2、 保存登录信息到本地
       localCache.setCache(LOGIN_TOKEN, this.token)
       // 3、 获取登录用户(role)详细信息
-      // const userInfoResult = await getUserInfoById(id)
-      // const userInfo = userInfoResult.data
-      // this.userInfo = userInfo
+      const userInfoResult = await getUserInfoById(id)
+      const userInfo = userInfoResult.data
+      console.log(userInfo, 'userInfo')
+      this.userInfo = userInfo
       // // 4、根据角色获取菜单（菜单menu）
-      // const userMenusResult = await getUserMenusByRoleId(this.userInfo.role.id)
-      // const userMenus = userMenusResult.data
-      // this.userMenus = userMenus
+      const userMenusResult = await getUserMenusByRoleId(this.userInfo.role[0].id)
+      const userMenus = userMenusResult.data
+      this.userMenus = userMenus
       // // 5、用户信息进行本地存储
-      // localCache.setCache('userInfo', userInfo)
-      // localCache.setCache('userMenus', userMenus)
+      localCache.setCache('userInfo', userInfo)
+      localCache.setCache('userMenus', userMenus)
 
       //重要 动态添加路由
-      // const routes = mapMenusToRoutes(userMenus)
-      // routes.forEach((route) => {
-      //   router.addRoute('main', route)
-      // })
+      const routes = mapMenusToRoutes(userMenus)
+      routes.forEach((route) => {
+        router.addRoute('main', route)
+      })
 
       // 6、跳转到首页
       router.push('/main')

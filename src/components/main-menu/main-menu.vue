@@ -12,7 +12,7 @@
         :default-active="defaultActive"
         :collapse="isFold"
       >
-        <template v-for="menu in userMeusList" :key="menu.id">
+        <template v-for="menu in userMeus" :key="menu.id">
           <el-sub-menu :index="menu.id + ''">
             <template #title>
               <!-- 动态组件展示图标 -->
@@ -22,7 +22,9 @@
               <span>{{ menu.name }}</span>
             </template>
             <template v-for="item in menu.children" :key="item.id">
-              <el-menu-item :index="item.id + ''">{{ item.name }}</el-menu-item>
+              <el-menu-item :index="item.id + ''" @click="switchMenu(item)">{{
+                item.name
+              }}</el-menu-item>
             </template>
           </el-sub-menu>
         </template>
@@ -33,9 +35,9 @@
 
 <script setup lang="ts">
 import userLoginStore from '@/store/login/login'
-import { firstMenu, pathMapToMenu } from '@/utils/map-menus'
-import { ref } from 'vue'
-import { useRoute } from 'vue-router'
+import { pathMapToMenu } from '@/utils/map-menus'
+import { computed } from 'vue'
+import { useRoute, useRouter } from 'vue-router'
 
 defineProps({
   isFold: {
@@ -47,50 +49,22 @@ defineProps({
 // 获取菜单
 const loginStore = userLoginStore()
 const userMeus = loginStore.userMenus
-const userMeusList = ref([
-  {
-    id: 1,
-    name: '系统总览',
-    icon: 'location',
-    children: [
-      {
-        id: 1,
-        name: '用户分析'
-      }
-    ]
-  },
-  {
-    id: 2,
-    name: '商品中心',
-    icon: 'location',
-    children: [
-      {
-        id: 1,
-        name: '商品类型'
-      },
-      {
-        id: 2,
-        name: '物流统计'
-      }
-    ]
-  },
-  {
-    id: 3,
-    name: '系统设置',
-    icon: 'Setting',
-    children: [
-      {
-        id: 1,
-        name: '系统设置'
-      }
-    ]
-  }
-])
 
 // el-menu 默认选中菜单
 const route = useRoute()
-pathMapToMenu(userMeus, route.path)
-const defaultActive = ref(firstMenu.id + '')
+
+const defaultActive = computed(() => {
+  const pathMenu = pathMapToMenu(userMeus, route.path)
+  return pathMenu.id + ''
+})
+
+// 切换菜单,监听item点击事件
+const router = useRouter()
+const switchMenu = (menu: any) => {
+  const url = menu.url
+  router.push(url)
+  console.log(menu)
+}
 </script>
 
 <style lang="less" scoped>

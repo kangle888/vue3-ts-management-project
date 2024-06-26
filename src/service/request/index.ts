@@ -69,7 +69,6 @@ class HYRequest {
         .request<any, T>(config)
         .then((res) => {
           // 单次响应的成功拦截处理
-
           if (config.interceptors?.responseSuccessFn) {
             res = config.interceptors.responseSuccessFn(res)
           }

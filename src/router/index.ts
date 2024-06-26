@@ -47,13 +47,13 @@ const router = createRouter({
 
 // 导航守卫
 
-router.beforeEach((to, from, next) => {
+router.beforeEach((to) => {
   const token = localCache.getCache(LOGIN_TOKEN)
   if (to.path.startsWith('/main') && !token) {
-    return next('/login')
+    return '/login'
   }
   if (to.path === '/main') {
-    return next(firstMenu?.url)
+    return firstMenu?.url
   }
 })
 

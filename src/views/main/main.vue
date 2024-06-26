@@ -1,7 +1,7 @@
 <template>
   <div class="main">
     <el-container class="main-content">
-      <el-aside :width="isCollapse ? '60px' : '210px'">
+      <el-aside :width="isCollapse ? '60px' : '190px'">
         <main-menu :is-fold="isCollapse"></main-menu>
       </el-aside>
       <el-container>
