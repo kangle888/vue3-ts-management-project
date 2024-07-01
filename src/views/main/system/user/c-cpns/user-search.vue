@@ -7,17 +7,13 @@
             <el-input
               v-model="searchForm.username"
               style="width: 100%"
-              placeholder="Please input"
+              placeholder="请输入用户名"
             />
           </el-form-item>
         </el-col>
         <el-col :span="8">
           <el-form-item label="真实姓名" label-width="80px" prop="realname">
-            <el-input
-              v-model="searchForm.realname"
-              style="width: 100%"
-              placeholder="Please input"
-            />
+            <el-input v-model="searchForm.realname" style="width: 100%" placeholder="请输入姓名" />
           </el-form-item>
         </el-col>
         <el-col :span="8">
@@ -25,17 +21,13 @@
             <el-input
               v-model="searchForm.cellphone"
               style="width: 100%"
-              placeholder="Please input number"
+              placeholder="请输入手机号"
             />
           </el-form-item>
         </el-col>
         <el-col :span="8">
           <el-form-item label="状态" label-width="80px" prop="status">
-            <el-select
-              v-model="searchForm.status"
-              placeholder="please select your zone"
-              style="width: 100%"
-            >
+            <el-select v-model="searchForm.status" placeholder="请选择状态" style="width: 100%">
               <el-option label="启用" :value="1" />
               <el-option label="禁用" :value="0" />
             </el-select>
@@ -48,8 +40,8 @@
               style="width: 100%"
               type="daterange"
               range-separator="To"
-              start-placeholder="Start date"
-              end-placeholder="End date"
+              start-placeholder="开始时间"
+              end-placeholder="结束时间"
             />
           </el-form-item>
         </el-col>

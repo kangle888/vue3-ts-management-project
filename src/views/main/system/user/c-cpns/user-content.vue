@@ -4,7 +4,13 @@
       <h2>用户列表</h2>
       <el-button type="primary">新建数据</el-button>
     </div>
-    <div class="table">表格</div>
+    <div class="table">
+      <el-table :data="tableData" border style="width: 100%">
+        <el-table-column prop="date" label="Date" width="180" />
+        <el-table-column prop="name" label="Name" width="180" />
+        <el-table-column prop="address" label="Address" />
+      </el-table>
+    </div>
     <div class="pagination">分页</div>
   </div>
 </template>
