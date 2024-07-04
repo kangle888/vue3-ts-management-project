@@ -24,22 +24,18 @@ class HYRequest {
     // 每个instance实例都添加拦截器
     this.instance.interceptors.request.use(
       (config) => {
-        console.log('请求成功的拦截')
         // loading/token
         return config
       },
       (err) => {
-        console.log('请求失败的拦截', err)
         return err
       }
     )
     this.instance.interceptors.response.use(
       (res) => {
-        console.log('响应成功的拦截', res)
         return res.data
       },
       (err) => {
-        console.log('响应失败的拦截', err)
         return err
       }
     )
@@ -73,7 +69,6 @@ class HYRequest {
         .request<any, T>(config)
         .then((res) => {
           // 单次响应的成功拦截处理
-
           if (config.interceptors?.responseSuccessFn) {
             res = config.interceptors.responseSuccessFn(res)
           }

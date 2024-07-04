@@ -56,8 +56,9 @@ import type { Plugin } from 'vite'
 export default defineConfig(({ mode }) => {
   console.log('mode:', mode)
   const isBuild = mode === 'production'
+  console.log('isBuild:', isBuild)
   const viteEnv = {
-    VITE_USE_MOCK: false // Set this to false if you don't want to use mocks
+    VITE_USE_MOCK: true // Set this to false if you don't want to use mocks
   }
 
   return {
@@ -67,19 +68,29 @@ export default defineConfig(({ mode }) => {
         '@': fileURLToPath(new URL('./src', import.meta.url))
       }
     },
+    // server: {
+    //   proxy: {
+    //     '/api': {
+    //       target: 'http://localhost:3000',
+    //       changeOrigin: true,
+    //       rewrite: (path) => path.replace(/^\/api/, '')
+    //     }
+    //   }
+    // }
     server: {
+      port: 3001,
+      host: '0.0.0.0',
+      open: true,
       proxy: {
-        '/api': {
-          target: 'http://localhost:3000',
-          changeOrigin: true,
-          rewrite: (path) => path.replace(/^\/api/, '')
-        }
+        // 代理配置
+        '/dev': 'https://www.fastmock.site/mock/48cab8545e64d93ff9ba66a87ad04f6b/'
       }
     }
   }
 })
 
 function createVitePlugins(viteEnv: Record<string, any>, isBuild: boolean) {
+  console.log('viteEnv:', viteEnv, isBuild)
   const vitePlugins: (Plugin | Plugin[])[] = [
     vue(),
     AutoImport({
@@ -104,12 +115,12 @@ function createVitePlugins(viteEnv: Record<string, any>, isBuild: boolean) {
   viteEnv.VITE_USE_MOCK &&
     vitePlugins.push(
       viteMockServe({
-        mockPath: '@mock/api',
+        mockPath: 'mock',
         localEnabled: !isBuild,
         prodEnabled: isBuild,
         injectCode: `
-        import { setupProdMockServer } from './mock'
-        setupProdMockServer()
+        import { setupProdMockServer } from '../mockProdServer';
+        setupProdMockServer();
       `
       })
     )

@@ -11,9 +11,9 @@ console.log(import.meta.env.SSR) // 是否是服务器端渲染(server side rend
 
 let BASE_URL = ''
 if (import.meta.env.PROD) {
-  BASE_URL = 'http://localhost:3000'
+  BASE_URL = '/prod'
 } else {
-  BASE_URL = 'http://localhost:3000'
+  BASE_URL = '/mock'
 }
 
 console.log(BASE_URL)

@@ -8,7 +8,6 @@ const hyRequest = new HYRequest({
   timeout: TIME_OUT,
   interceptors: {
     requestSuccessFn: (config) => {
-      console.log('到这里了吗')
       // 携带token
       const token = localCache.getCache(LOGIN_TOKEN)
       if (config.headers && token) {

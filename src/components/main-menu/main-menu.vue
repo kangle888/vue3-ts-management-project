@@ -5,13 +5,8 @@
       <h2 v-show="!isFold" class="title">番茄管理系统</h2>
     </div>
     <div class="menu">
-      <el-menu
-        text-color="#b7bdc3"
-        active-text-color="#fff"
-        background-color="#001529"
-        default-active="1"
-        :collapse="isFold"
-      >
+      <el-menu text-color="#b7bdc3" active-text-color="#fff" background-color="#001529" default-active="1"
+        :collapse="isFold">
         <template v-for="menu in userMeusList" :key="menu.id">
           <el-sub-menu :index="menu.id + ''">
             <template #title>
@@ -89,6 +84,7 @@ const userMeusList = ref([
 <style lang="less" scoped>
 .main-menu {
   height: 100%;
+  width: 211px;
   background-color: #001529;
 }
 
