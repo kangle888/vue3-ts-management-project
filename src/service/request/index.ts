@@ -72,11 +72,10 @@ class HYRequest {
           if (config.interceptors?.responseSuccessFn) {
             res = config.interceptors.responseSuccessFn(res)
           }
-          console.log('单次响应的成功拦截处理', res)
+
           resolve(res)
         })
         .catch((err) => {
-          console.log('单次响应的失败拦截处理', err)
           reject(err)
         })
     })

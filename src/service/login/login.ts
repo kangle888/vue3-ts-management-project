@@ -8,9 +8,9 @@ export const accountLoginRequest = (account: IAccount) => {
   })
 }
 
-export const getUserInfoById = (id: number) => {
+export const getUserInfoById = (userId: number) => {
   return hyRequest.get({
-    url: `/users/${id}`
+    url: `/user/role?userId=${userId}`
   })
 }
 
@@ -19,6 +19,6 @@ export const getUserInfoById = (id: number) => {
  */
 export const getUserMenusByRoleId = (id: number) => {
   return hyRequest.get({
-    url: '/role/' + id + '/menu'
+    url: `user/menu/?roleId=${id}`
   })
 }

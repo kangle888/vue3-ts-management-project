@@ -1,7 +1,7 @@
 <template>
   <div class="main">
     <el-container class="main-content">
-      <el-aside :width="isCollapse ? '60px' : '210px'">
+      <el-aside :width="isCollapse ? '60px' : '190px'">
         <main-menu :is-fold="isCollapse"></main-menu>
       </el-aside>
       <el-container>
@@ -9,7 +9,10 @@
           <!--父组件接收自定义事件 -->
           <main-header @fold-change="handleFoldChange"></main-header>
         </el-header>
-        <el-main>Main</el-main>
+        <el-main>
+          <!-- main页面的路由 -->
+          <router-view> </router-view>
+        </el-main>
       </el-container>
     </el-container>
   </div>
