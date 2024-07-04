@@ -18,8 +18,7 @@
             </template>
             <template v-for="item in menu.children" :key="item.id">
               <el-menu-item :index="item.id + ''" @click="switchMenu(item)">{{
-                item.name
-                }}</el-menu-item>
+                item.name }}</el-menu-item>
             </template>
           </el-sub-menu>
         </template>

@@ -24,9 +24,9 @@ const useLoginStore = defineStore('login', {
   actions: {
     async loginAccountAction(account: IAccount) {
       //1、 登录逻辑
-      const data = await accountLoginRequest(account)
-      console.log('loginResult:', data)
-      const loginResult = data.data
+      const loginRes = await accountLoginRequest(account)
+      console.log('loginResult:', loginRes)
+      const loginResult = loginRes.data
       const { id } = loginResult
       this.token = loginResult.token
 
@@ -37,7 +37,7 @@ const useLoginStore = defineStore('login', {
       const userInfo = userInfoResult.data
       this.userInfo = userInfo
       // // 4、根据角色获取菜单（菜单menu）
-      const userMenusResult = await getUserMenusByRoleId(this.userInfo.role[0].id)
+      const userMenusResult = await getUserMenusByRoleId(this.userInfo.id)
       const userMenus = userMenusResult.data
       this.userMenus = userMenus
       // // 5、用户信息进行本地存储

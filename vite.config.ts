@@ -113,7 +113,7 @@ function createVitePlugins(viteEnv: Record<string, any>, isBuild: boolean) {
       ]
     }),
     visualizer({
-      open: true, // 直接在浏览器中打开分析报告
+      open: false, // 直接在浏览器中打开分析报告
       filename: 'stats.html', // 输出文件的名称
       gzipSize: true, // 显示gzip后的大小
       brotliSize: true // 显示brotli压缩后的大小
@@ -126,7 +126,7 @@ function createVitePlugins(viteEnv: Record<string, any>, isBuild: boolean) {
         localEnabled: !isBuild,
         prodEnabled: isBuild,
         injectCode: `
-        import { setupProdMockServer } from '../mockProdServer';
+        import { setupProdMockServer } from './mockProdServer';
         setupProdMockServer();
       `
       })
