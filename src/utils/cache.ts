@@ -10,9 +10,8 @@ class Cache {
   }
 
   setCache(key: string, value: any) {
-    if (value) {
-      this.storage.setItem(key, JSON.stringify(value))
-    }
+    console.log('setCache', key, value)
+    this.storage.setItem(key, JSON.stringify(value))
   }
 
   getCache(key: string) {

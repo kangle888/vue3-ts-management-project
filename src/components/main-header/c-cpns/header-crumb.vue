@@ -27,4 +27,9 @@ const breadcrumbs = computed(() => {
 .curmb {
   color: red;
 }
+@media (max-width: 800px) {
+  .curmb {
+    display: none;
+  }
+}
 </style>

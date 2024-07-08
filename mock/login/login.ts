@@ -82,6 +82,24 @@ export const getUserMenusByRoleId = {
               url: '/main/analysis/overview'
             }
           ]
+        },
+        {
+          id: 4,
+          name: '用户管理',
+          url: '/main/system',
+          icon: 'Position',
+          children: [
+            {
+              id: 5,
+              name: '角色管理',
+              url: '/main/system/role'
+            },
+            {
+              id: 6,
+              name: '用户管理',
+              url: '/main/system/user'
+            }
+          ]
         }
       ]
     }

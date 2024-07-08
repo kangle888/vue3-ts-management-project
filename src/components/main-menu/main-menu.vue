@@ -5,8 +5,13 @@
       <h2 v-show="!isFold" class="title">番茄管理系统</h2>
     </div>
     <div class="menu">
-      <el-menu text-color="#b7bdc3" active-text-color="#fff" background-color="#001529" :default-active="defaultActive"
-        :collapse="isFold">
+      <el-menu
+        text-color="#b7bdc3"
+        active-text-color="#fff"
+        background-color="#001529"
+        :default-active="defaultActive"
+        :collapse="isFold"
+      >
         <template v-for="menu in userMeus" :key="menu.id">
           <el-sub-menu :index="menu.id + ''">
             <template #title>
@@ -18,7 +23,8 @@
             </template>
             <template v-for="item in menu.children" :key="item.id">
               <el-menu-item :index="item.id + ''" @click="switchMenu(item)">{{
-                item.name }}</el-menu-item>
+                item.name
+              }}</el-menu-item>
             </template>
           </el-sub-menu>
         </template>
@@ -64,7 +70,7 @@ const switchMenu = (menu: any) => {
 <style lang="less" scoped>
 .main-menu {
   height: 100%;
-  width: 211px;
+  width: 221px;
   background-color: #001529;
 }
 

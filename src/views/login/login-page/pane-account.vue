@@ -1,6 +1,13 @@
 <template>
   <div class="pane-account">
-    <el-form :model="account" :rules="accountRules" label-width="60px" size="large" status-icon ref="formRef">
+    <el-form
+      :model="account"
+      :rules="accountRules"
+      label-width="60px"
+      size="large"
+      status-icon
+      ref="formRef"
+    >
       <el-form-item label="帐号" prop="username">
         <el-input v-model="account.username" />
       </el-form-item>
@@ -24,8 +31,8 @@ const CACHE_PASSWORD = 'password'
 
 // 1.定义account数据
 const account = reactive<IAccount>({
-  username: '',
-  password: ''
+  username: localCache.getCache(CACHE_NAME) || '',
+  password: localCache.getCache(CACHE_PASSWORD) || ''
 })
 
 // 2.定义校验规则

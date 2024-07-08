@@ -1,4 +1,3 @@
-import { Menu } from '@element-plus/icons-vue'
 import type { RouteRecordRaw } from 'vue-router'
 
 function loadLocalRoutes() {
@@ -26,28 +25,32 @@ export function mapMenusToRoutes(userMenus: any[]): RouteRecordRaw[] {
   // 3.根据菜单去匹配路由
   const routes: RouteRecordRaw[] = []
 
-  const _recurseGetRoute = (userMenus: any[]) => {
-    for (const menu of userMenus) {
-      for (const submenu of menu.children) {
-        const route = localRoutes.find((item) => item.path === submenu.url)
+  const _recurseGetRoute = (menus: any[], parentPath?: string) => {
+    for (const menu of menus) {
+      if (menu.children) {
+        // 如果有子菜单，递归调用自身
+        _recurseGetRoute(menu.children, menu.url)
+      } else {
+        const route = localRoutes.find((item) => item.path === menu.url)
         if (route) {
-          // 1、给route的顶层菜单增加重定向(但是只需添加一次即可)
-          if (!routes.find((item) => item.path === menu.path)) {
-            routes.push({ path: menu.url, redirect: route.path })
+          // 给route的顶层菜单增加重定向(但是只需添加一次即可)
+          if (parentPath && !routes.find((item) => item.path === parentPath)) {
+            routes.push({ path: parentPath, redirect: route.path })
           }
-          // 2、将二级菜单的路由添加到routes中
+          // 将菜单的路由添加到routes中
           routes.push(route)
         }
         // 将第一个匹配的路由作为默认路由
         if (!firstMenu && route) {
-          firstMenu = submenu
+          firstMenu = menu
           console.log(firstMenu, 'firstMenu')
         }
       }
     }
-    return routes
   }
-  return _recurseGetRoute(userMenus)
+
+  _recurseGetRoute(userMenus)
+  return routes
 }
 
 /**
@@ -68,37 +71,30 @@ export function pathMapToMenu(userMenus: any[], path: string) {
 
 /**
  * @desc 面包屑的路径
- * @param userMenus  用户菜单
- * @param path  当前路径
+ * @param userMenus 用户菜单
+ * @param path 当前路径
  */
 
 export const mapPathToBreadcrumbs = (path: string, userMenus: any[]) => {
   const breadcrumb: any[] = []
   _recursePathMapToBreadcrumb(userMenus, path)
 
-  function _recursePathMapToBreadcrumb(userMenus: any[], path: string) {
-    for (const menu of userMenus) {
-      if (menu.children) {
-        for (const submenu of menu.children) {
-          if (submenu.url === path) {
-            // 先将子菜单加入到 breadcrumb
-            breadcrumb.unshift({ path: submenu.url, name: submenu.name })
+  function _recursePathMapToBreadcrumb(menus: any[], currentPath: string): boolean {
+    for (const menu of menus) {
+      if (menu.url === currentPath) {
+        breadcrumb.unshift({ path: menu.url, name: menu.name })
+        return true
+      }
 
-            // 如果有父级菜单，递归
-            if (menu.url) {
-              _recursePathMapToBreadcrumb(userMenus, menu.url)
-            }
-            return
-          }
+      if (menu.children) {
+        const found = _recursePathMapToBreadcrumb(menu.children, currentPath)
+        if (found) {
+          breadcrumb.unshift({ path: menu.url, name: menu.name })
+          return true
         }
       }
-
-      // 如果当前菜单就是所要查找的路径，直接加入 breadcrumb
-      if (menu.url === path) {
-        breadcrumb.unshift({ path: menu.url, name: menu.name })
-        return
-      }
     }
+    return false
   }
 
   return breadcrumb

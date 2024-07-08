@@ -1,8 +1,8 @@
 <template>
   <div class="main">
     <el-container class="main-content">
-      <el-aside :width="isCollapse ? '60px' : '190px'">
-        <main-menu :is-fold="isCollapse"></main-menu>
+      <el-aside :width="isCollapseComputed ? '60px' : '220px'">
+        <main-menu :is-fold="isCollapseComputed"></main-menu>
       </el-aside>
       <el-container>
         <el-header>
@@ -21,17 +21,24 @@
 <script setup lang="ts">
 import MainHeader from '@/components/main-header/main-header.vue'
 import MainMenu from '@/components/main-menu/main-menu.vue'
-import hyRequest from '@/service'
-import { ref } from 'vue'
+import { computed, onBeforeUnmount, onMounted, ref } from 'vue'
 
 const isCollapse = ref(false)
-
 const handleFoldChange = (val: boolean) => {
   isCollapse.value = val
 }
-
-hyRequest.request({}).then((res) => {
-  console.log(res)
+// 监听窗口大小变化
+const windowWidth = ref(window.innerWidth)
+const updateWindowWidth = () => {
+  windowWidth.value = window.innerWidth
+}
+// 定义计算属性，用于根据窗口大小判断是否折叠侧边栏
+const isCollapseComputed = computed(() => windowWidth.value < 768 || isCollapse.value)
+onMounted(() => {
+  window.addEventListener('resize', updateWindowWidth)
+})
+onBeforeUnmount(() => {
+  window.removeEventListener('resize', updateWindowWidth)
 })
 </script>
 

@@ -1,5 +1,5 @@
 <template>
-  <div class="login-panel">
+  <div class="login-panel" @keydown.enter="handleLoginBtnClick">
     <!-- 顶部的标题 -->
     <h1 class="title">xxx管理系统</h1>
 
@@ -36,7 +36,7 @@
 
     <!-- 底部区域 -->
     <div class="controls">
-      <el-checkbox label="记住密码" size="large" />
+      <el-checkbox v-model="isRemPwd" label="记住密码" size="large" />
       <el-link type="primary">忘记密码</el-link>
     </div>
     <el-button class="login-btn" type="primary" size="large" @click="handleLoginBtnClick">
@@ -53,8 +53,10 @@ import PanePhone from './pane-phone.vue'
 
 const activeName = ref('account')
 const isRemPwd = ref<boolean>(localCache.getCache('isRemPwd') ?? false)
+
 watch(isRemPwd, (newValue) => {
   localCache.setCache('isRemPwd', newValue)
+  console.log('isRemPwd:', newValue)
 })
 
 const accountRef = ref<InstanceType<typeof PaneAccount>>()
