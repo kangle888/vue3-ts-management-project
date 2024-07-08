@@ -8,7 +8,7 @@ const users = [
   },
   {
     username: 'editor',
-    password: '123456',
+    password: '1234561',
     token: 'editor',
     id: 2
   },
