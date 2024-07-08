@@ -126,7 +126,7 @@ function createVitePlugins(viteEnv: Record<string, any>, isBuild: boolean) {
         localEnabled: !isBuild,
         prodEnabled: isBuild,
         injectCode: `
-        import { setupProdMockServer } from './mockProdServer';
+        import { setupProdMockServer } from '../mockProdServer';
         setupProdMockServer();
       `
       })

@@ -1,4 +1,3 @@
-import { url } from 'inspector'
 import type { MockMethod } from 'vite-plugin-mock'
 const users = [
   {

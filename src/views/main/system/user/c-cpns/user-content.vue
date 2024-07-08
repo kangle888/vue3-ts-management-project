@@ -15,7 +15,16 @@
   </div>
 </template>
 
-<script setup lang="ts"></script>
+<script setup lang="ts">
+import { ref } from 'vue'
+const tableData = ref([
+  { date: '2016-05-02', name: '王小虎', address: '上海市普陀区金沙江路 1518 弄' },
+  { date: '2016-05-04', name: '王小虎', address: '上海市普陀区金沙江路 1517 弄' },
+  { date: '2016-05-01', name: '王小虎', address: '上海市普陀区金沙江路 1519 弄' },
+  { date: '2016-05-03', name: '王小虎', address: '上海市普陀区金沙江路 1516 弄' }
+])
+
+</script>
 
 <style lang="less" scoped>
 .content {
@@ -23,9 +32,11 @@
   margin-top: 20px;
   padding: 20px;
 }
+
 h2 {
   font-weight: 700;
 }
+
 .header {
   display: flex;
   justify-content: space-between;
