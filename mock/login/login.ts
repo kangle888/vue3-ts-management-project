@@ -22,7 +22,7 @@ const users = [
 export const accountLoginRequest = {
   url: `/mock/user/login`,
   method: 'post',
-  response: ({ body }) => {
+  response: ({ body }: { body: any }) => {
     const user = users.find(
       (user) => body.username === user.username && body.password === user.password
     )
@@ -42,7 +42,7 @@ export const accountLoginRequest = {
 export const getUserByIdRequest = {
   url: '/mock/user/role',
   method: 'get',
-  response: ({ url }) => {
+  response: ({ url }: { url: any }) => {
     console.log('url', url)
     return {
       code: 200,
