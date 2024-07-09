@@ -1,4 +1,4 @@
 export interface IAccount {
-  username: string
+  loginName: string
   password: string
 }

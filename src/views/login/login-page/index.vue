@@ -1,7 +1,7 @@
 <template>
   <div class="login-panel" @keydown.enter="handleLoginBtnClick">
     <!-- 顶部的标题 -->
-    <h1 class="title">xxx管理系统</h1>
+    <h1 class="title">茄盒物流管理系统</h1>
 
     <!-- 中间的tabs切换 -->
     <div class="tabs">
@@ -17,19 +17,6 @@
             </div>
           </template>
           <pane-account ref="accountRef" />
-        </el-tab-pane>
-
-        <!-- 2.手机登录的Pane -->
-        <el-tab-pane name="phone">
-          <template #label>
-            <div class="label">
-              <el-icon>
-                <Cellphone />
-              </el-icon>
-              <span class="text">手机登录</span>
-            </div>
-          </template>
-          <pane-phone />
         </el-tab-pane>
       </el-tabs>
     </div>
@@ -49,14 +36,12 @@
 import { localCache } from '@/utils/cache'
 import { ref, watch } from 'vue'
 import PaneAccount from './pane-account.vue'
-import PanePhone from './pane-phone.vue'
 
 const activeName = ref('account')
 const isRemPwd = ref<boolean>(localCache.getCache('isRemPwd') ?? false)
 
 watch(isRemPwd, (newValue) => {
   localCache.setCache('isRemPwd', newValue)
-  console.log('isRemPwd:', newValue)
 })
 
 const accountRef = ref<InstanceType<typeof PaneAccount>>()

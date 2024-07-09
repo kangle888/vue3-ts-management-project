@@ -3,7 +3,7 @@ import type { IAccount } from '@/types'
 
 export const accountLoginRequest = (account: IAccount) => {
   return hyRequest.post({
-    url: '/user/login',
+    url: '/youthBoost/login/operatorLogin',
     data: account
   })
 }

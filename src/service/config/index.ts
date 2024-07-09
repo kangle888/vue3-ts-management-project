@@ -13,7 +13,7 @@ let BASE_URL = ''
 if (import.meta.env.PROD) {
   BASE_URL = '/prod'
 } else {
-  BASE_URL = '/mock'
+  BASE_URL = '/api'
 }
 
 console.log(BASE_URL)

@@ -8,8 +8,8 @@
       status-icon
       ref="formRef"
     >
-      <el-form-item label="帐号" prop="username">
-        <el-input v-model="account.username" />
+      <el-form-item label="帐号" prop="loginName">
+        <el-input v-model="account.loginName" />
       </el-form-item>
       <el-form-item label="密码" prop="password">
         <el-input v-model="account.password" show-password />
@@ -31,17 +31,17 @@ const CACHE_PASSWORD = 'password'
 
 // 1.定义account数据
 const account = reactive<IAccount>({
-  username: localCache.getCache(CACHE_NAME) || '',
+  loginName: localCache.getCache(CACHE_NAME) || '',
   password: localCache.getCache(CACHE_PASSWORD) || ''
 })
 
 // 2.定义校验规则
 const accountRules: FormRules = {
-  username: [
+  loginName: [
     { required: true, message: '必须输入帐号信息~', trigger: 'blur' },
     {
-      pattern: /^[a-z0-9]{6,20}$/,
-      message: '必须是6~20数字或字母组成~',
+      pattern: /^[a-z0-9]{5,20}$/,
+      message: '必须是5~20数字或字母组成~',
       trigger: 'blur'
     }
   ],
@@ -63,14 +63,14 @@ const loginAction = (isRemPwd: boolean) => {
   formRef.value?.validate((valid) => {
     if (valid) {
       // 1.获取用户输入的帐号和密码
-      const username = account.username
+      const loginName = account.loginName
       const password = account.password
 
       // 2.向服务器发送网络请求(携带账号和密码)
-      loginStore.loginAccountAction({ username, password }).then(() => {
+      loginStore.loginAccountAction({ loginName, password }).then(() => {
         // 3.判断是否需要记住密码
         if (isRemPwd) {
-          localCache.setCache(CACHE_NAME, username)
+          localCache.setCache(CACHE_NAME, loginName)
           localCache.setCache(CACHE_PASSWORD, password)
         } else {
           localCache.removeCache(CACHE_NAME)

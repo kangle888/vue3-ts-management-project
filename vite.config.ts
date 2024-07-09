@@ -55,11 +55,9 @@ import type { Plugin } from 'vite'
 // })
 
 export default defineConfig(({ mode }) => {
-  console.log('mode:', mode)
   const isBuild = mode === 'production'
-  console.log('isBuild:', isBuild)
   const viteEnv = {
-    VITE_USE_MOCK: true // Set this to false if you don't want to use mocks
+    VITE_USE_MOCK: false // Set this to false if you don't want to use mocks
   }
 
   return {
@@ -72,26 +70,29 @@ export default defineConfig(({ mode }) => {
     // server: {
     //   proxy: {
     //     '/api': {
-    //       target: 'http://localhost:3000',
+    //       target: 'http://183.193.101.170:10000',
     //       changeOrigin: true,
     //       rewrite: (path) => path.replace(/^\/api/, '')
     //     }
     //   }
     // }
     server: {
-      port: 3001,
-      host: '0.0.0.0',
-      open: true,
+      port: 10000, // 启动服务器的端口号
+      host: '0.0.0.0', // 启动服务器的主机名
+      open: true, // 启动服务器时是否自动打开浏览器
       proxy: {
-        // 代理配置
-        '/dev': 'https://www.fastmock.site/mock/48cab8545e64d93ff9ba66a87ad04f6b/'
+        '/api': {
+          // 将匹配的请求路径代理到目标服务器
+          target: 'http://183.193.101.170:10000', // 目标服务器地址
+          changeOrigin: true, // 改变请求的源
+          rewrite: (path) => path.replace(/^\/api/, '') // 重写请求路径
+        }
       }
     }
   }
 })
 
 function createVitePlugins(viteEnv: Record<string, any>, isBuild: boolean) {
-  console.log('viteEnv:', viteEnv, isBuild)
   const vitePlugins: (Plugin | Plugin[])[] = [
     vue(),
     AutoImport({
