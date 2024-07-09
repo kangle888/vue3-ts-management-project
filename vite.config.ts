@@ -77,13 +77,13 @@ export default defineConfig(({ mode }) => {
     //   }
     // }
     server: {
-      port: 10000, // 启动服务器的端口号
+      port: 11000, // 启动服务器的端口号
       host: '0.0.0.0', // 启动服务器的主机名
       open: true, // 启动服务器时是否自动打开浏览器
       proxy: {
         '/api': {
           // 将匹配的请求路径代理到目标服务器
-          target: 'http://183.193.101.170:10000', // 目标服务器地址
+          target: 'http://183.193.101.170:11000', // 目标服务器地址
           changeOrigin: true, // 改变请求的源
           rewrite: (path) => path.replace(/^\/api/, '') // 重写请求路径
         }

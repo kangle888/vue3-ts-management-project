@@ -1,10 +1,13 @@
 import { defineStore } from 'pinia'
-import { accountLoginRequest, getUserInfoById, getUserMenusByRoleId } from '@/service/login/login'
+import { accountLoginRequest } from '@/service/login/login'
 import type { IAccount } from '@/types'
 import { localCache } from '@/utils/cache'
 import router from '@/router'
 import { LOGIN_TOKEN } from '@/global/constants'
 import { mapMenusToRoutes } from '@/utils/map-menus'
+
+//模拟用户menu数据
+import { getUserInfoById, getUserMenusByRoleId } from '@/utils/userMenus'
 
 interface ILoginState {
   token: string
@@ -27,25 +30,26 @@ const useLoginStore = defineStore('login', {
       const loginRes = await accountLoginRequest(account)
       console.log('loginResult:', loginRes)
       const loginResult = loginRes.data
-      const { id } = loginResult
+      // const { id } = loginResult
       this.token = loginResult.token
 
       // 2、 保存登录信息到本地
       localCache.setCache(LOGIN_TOKEN, this.token)
+
       // 3、 获取登录用户(role)详细信息
-      const userInfoResult = await getUserInfoById(id)
+      const userInfoResult = await getUserInfoById(1)
       const userInfo = userInfoResult.data
       this.userInfo = userInfo
-      // // 4、根据角色获取菜单（菜单menu）
+      // // // 4、根据角色获取菜单（菜单menu）
       const userMenusResult = await getUserMenusByRoleId(this.userInfo.id)
       const userMenus = userMenusResult.data
       this.userMenus = userMenus
       // // 5、用户信息进行本地存储
       localCache.setCache('userInfo', userInfo)
-      localCache.setCache('userMenus', userMenus)
+      localCache.setCache('userMenus', this.userMenus)
 
       //重要 动态添加路由
-      const routes = mapMenusToRoutes(userMenus)
+      const routes = mapMenusToRoutes(userMenus as any)
       routes.forEach((route) => {
         router.addRoute('main', route)
       })

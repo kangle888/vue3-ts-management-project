@@ -26,6 +26,7 @@ export function mapMenusToRoutes(userMenus: any[]): RouteRecordRaw[] {
   const routes: RouteRecordRaw[] = []
 
   const _recurseGetRoute = (menus: any[], parentPath?: string) => {
+    console.log(menus, 'menus-------------------')
     for (const menu of menus) {
       if (menu.children) {
         // 如果有子菜单，递归调用自身
