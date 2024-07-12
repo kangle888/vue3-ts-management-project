@@ -1,5 +1,5 @@
 import { defineStore } from 'pinia'
-import { accountLoginRequest } from '@/service/login/login'
+import { accountLoginRequest, getUserInfoById, getUserMenusByRoleId } from '@/service/login/login'
 import type { IAccount } from '@/types'
 import { localCache } from '@/utils/cache'
 import router from '@/router'
@@ -7,7 +7,7 @@ import { LOGIN_TOKEN } from '@/global/constants'
 import { mapMenusToRoutes } from '@/utils/map-menus'
 
 //模拟用户menu数据
-import { getUserInfoById, getUserMenusByRoleId } from '@/utils/userMenus'
+// import { getUserInfoById, getUserMenusByRoleId } from '@/utils/userMenus'
 
 interface ILoginState {
   token: string
@@ -30,14 +30,14 @@ const useLoginStore = defineStore('login', {
       const loginRes = await accountLoginRequest(account)
       console.log('loginResult:', loginRes)
       const loginResult = loginRes.data
-      // const { id } = loginResult
+      const { id } = loginResult
       this.token = loginResult.token
 
       // 2、 保存登录信息到本地
       localCache.setCache(LOGIN_TOKEN, this.token)
 
       // 3、 获取登录用户(role)详细信息
-      const userInfoResult = await getUserInfoById(1)
+      const userInfoResult = await getUserInfoById(id)
       const userInfo = userInfoResult.data
       this.userInfo = userInfo
       // // // 4、根据角色获取菜单（菜单menu）

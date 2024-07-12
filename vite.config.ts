@@ -57,7 +57,7 @@ import type { Plugin } from 'vite'
 export default defineConfig(({ mode }) => {
   const isBuild = mode === 'production'
   const viteEnv = {
-    VITE_USE_MOCK: false // Set this to false if you don't want to use mocks
+    VITE_USE_MOCK: true // Set this to false if you don't want to use mocks
   }
 
   return {
@@ -77,7 +77,7 @@ export default defineConfig(({ mode }) => {
     //   }
     // }
     server: {
-      port: 11000, // 启动服务器的端口号
+      // port: 11000, // 启动服务器的端口号
       host: '0.0.0.0', // 启动服务器的主机名
       open: true, // 启动服务器时是否自动打开浏览器
       proxy: {

@@ -1,30 +1,30 @@
 import type { MockMethod } from 'vite-plugin-mock'
 const users = [
   {
-    username: 'admin1',
+    loginName: 'admin1',
     password: '123456',
     token: 'admin',
     id: 1
   },
   {
-    username: 'editor',
+    loginName: 'editor',
     password: '1234561',
     token: 'editor',
     id: 2
   },
   {
-    username: 'test',
+    loginName: 'test',
     password: '123456',
     token: 'test',
     id: 3
   }
 ]
 export const accountLoginRequest = {
-  url: `/mock/user/login`,
+  url: `/mock/youthBoost/login/operatorLogin`,
   method: 'post',
   response: ({ body }: { body: any }) => {
     const user = users.find(
-      (user) => body.username === user.username && body.password === user.password
+      (user) => body.loginName === user.loginName && body.password === user.password
     )
     if (user) {
       return {

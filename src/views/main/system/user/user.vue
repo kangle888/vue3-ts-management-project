@@ -1,17 +1,17 @@
 <template>
-  <div class="user">
-    <user-search />
-    <user-content />
+  <div class="order">
+    <order-search />
+    <order-content />
   </div>
 </template>
 
 <script setup lang="ts">
-import UserSearch from './c-cpns/user-search.vue'
-import UserContent from './c-cpns/user-content.vue'
+import OrderSearch from './c-cpns/order-search.vue'
+import OrderContent from './c-cpns/order-content.vue'
 </script>
 
 <style lang="less" scoped>
-.user {
+.order {
   border-radius: 8px;
   overflow: hidden;
 }

@@ -2,7 +2,7 @@
   <div class="main-menu">
     <div class="logo">
       <img class="img" src="@/assets/img/logo.svg" alt="" />
-      <h2 v-show="!isFold" class="title">番茄管理系统</h2>
+      <h2 v-show="!isFold" class="title">茄盒管理系统</h2>
     </div>
     <div class="menu">
       <el-menu
