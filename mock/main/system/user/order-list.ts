@@ -5,11 +5,11 @@ import Mock from 'mockjs'
 const orderList = [] as any[]
 const generateOrders = () => {
   const data = Mock.mock({
-    'list|50-100': [
+    'list|20-100': [
       {
         'id|+1': 1,
-        merchantTradeNo: `2024062511333925944822@integer(100, 999)`,
-        transactionId: `420000221420240625571753980@integer(100, 999)`,
+        merchantTradeNo: `@integer(1, 10)`,
+        transactionId: `@integer(1, 20)`,
         paidAmount: '@float(100, 10000, 0, 2)',
         payTime: '@date("yyyy-MM-dd")',
         'orderState|0-5': 0
@@ -21,10 +21,35 @@ const generateOrders = () => {
 }
 generateOrders()
 
+// 搜索订单列表 通过交易号
+  const searchOrderList = (transactionId: string) => {
+
+    const res = [] as any[]
+    const temp = Number(transactionId)
+    console.log(temp, 'temp')
+    for (const item of orderList) {
+      if (item.transactionId === temp) {
+        res.push(item)
+      }
+    }
+    console.log(res, 'res')
+    return res
+  }
+
+
+
 export const getOrdeList = {
   url: '/mock/youthBoost/mchGetOrdeList',
-  method: 'get',
-  response: ({ body }: { body: any }) => {
+  method: 'post',
+  response: ({body}:{body:any}) => {
+    const { transactionId } = body
+    if (transactionId) {
+      return {
+        code: 200,
+        message: '成功',
+        data: searchOrderList(transactionId)
+      }
+    }
     return {
       code: 200,
       message: '成功',

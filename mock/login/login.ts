@@ -84,7 +84,7 @@ export const getUserMenusByRoleId = {
         },
         {
           id: 4,
-          name: '用户管理',
+          name: '物流管理',
           url: '/main/system',
           icon: 'Position',
           children: [
@@ -95,8 +95,8 @@ export const getUserMenusByRoleId = {
             },
             {
               id: 6,
-              name: '用户管理',
-              url: '/main/system/user'
+              name: '订单列表',
+              url: '/main/system/order-list'
             }
           ]
         }

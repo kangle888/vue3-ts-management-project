@@ -1,21 +1,12 @@
 <!-- src/components/Pagination.vue -->
 <template>
-  <el-pagination
-    v-model:current-page="localCurrentPage"
-    v-model:page-size="localPageSize"
-    :page-sizes="pageSizes"
-    :size="size"
-    :disabled="disabled"
-    :background="background"
-    layout="total,sizes, ->, prev, pager, next, jumper"
-    :total="total"
-    @size-change="handleSizeChange"
-    @current-change="handleCurrentChange"
-  />
+  <el-pagination v-model:current-page="localCurrentPage" v-model:page-size="localPageSize" :page-sizes="pageSizes"
+    :size="size" :disabled="disabled" :background="background" layout="total,sizes, ->, prev, pager, next, jumper"
+    :total="total" @size-change="handleSizeChange" @current-change="handleCurrentChange" />
 </template>
 
 <script setup lang="ts">
-import { defineProps, defineEmits, ref, watch } from 'vue'
+import { defineProps, defineEmits, ref, watch, type PropType } from 'vue'
 
 const props = defineProps({
   total: {
@@ -31,7 +22,7 @@ const props = defineProps({
     default: 10
   },
   pageSizes: {
-    type: Array,
+    type: Array as PropType<number[]>,
     default: () => [10, 20, 30, 40, 50]
   },
   size: {

@@ -11,7 +11,11 @@
         </el-header>
         <el-main>
           <!-- main页面的路由 -->
-          <router-view> </router-view>
+          <router-view v-slot="{ Component }">
+            <transition name="slide-fade">
+              <component :is="Component" />
+            </transition>
+          </router-view>
         </el-main>
       </el-container>
     </el-container>
@@ -46,6 +50,7 @@ onBeforeUnmount(() => {
 .main {
   height: 100%;
 }
+
 .main-content {
   height: 100%;
 
@@ -56,8 +61,10 @@ onBeforeUnmount(() => {
     text-align: left;
     cursor: pointer;
     background-color: #001529;
-    scrollbar-width: none; /* firefox */
-    -ms-overflow-style: none; /* IE 10+ */
+    scrollbar-width: none;
+    /* firefox */
+    -ms-overflow-style: none;
+    /* IE 10+ */
 
     transition: width 0.3s ease;
 
@@ -69,5 +76,18 @@ onBeforeUnmount(() => {
   .el-main {
     background-color: #f0f2f5;
   }
+
+
+  .slide-fade-enter-active,
+  .slide-fade-leave-active {
+    transition: all 0.7s ease;
+  }
+
+  .slide-fade-enter-from,
+  .slide-fade-leave-to {
+    transform: translateX(100%);
+    opacity: 0;
+  }
+
 }
 </style>

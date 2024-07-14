@@ -1,14 +1,7 @@
 <template>
   <div class="content">
-    <el-menu
-      :default-active="activeIndex"
-      class="el-menu-demo"
-      mode="horizontal"
-      background-color="#ffffff"
-      text-color="#737373"
-      active-text-color="#353535"
-      @select="handleSelect"
-    >
+    <el-menu :default-active="activeIndex" class="el-menu-demo" mode="horizontal" background-color="#ffffff"
+      text-color="#737373" active-text-color="#353535" @select="handleSelect">
       <el-menu-item index="1">全部</el-menu-item>
       <el-menu-item index="2">待发货</el-menu-item>
       <el-menu-item index="3">48小时待发货</el-menu-item>
