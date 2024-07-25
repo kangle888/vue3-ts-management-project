@@ -11,7 +11,7 @@
 
 let BASE_URL = ''
 if (import.meta.env.PROD) {
-  BASE_URL = 'http://10.1.200.22:12000'
+  BASE_URL = 'http://127.0.0.1:12000'
 } else {
   BASE_URL = '/api'
 }

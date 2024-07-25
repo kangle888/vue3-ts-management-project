@@ -188,6 +188,10 @@ const handleDeliver = async (row: any) => {
 
 // 分页
 const pagedOrders = computed(() => {
+  // 如果 filteredOrders 不是数组，返回空数组
+  if (!Array.isArray(filteredOrders.value)) {
+    return []
+  }
   const start = (currentPage.value - 1) * pageSize.value
   const end = start + pageSize.value
   return filteredOrders.value.slice(start, end)
