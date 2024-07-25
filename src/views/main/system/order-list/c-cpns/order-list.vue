@@ -120,15 +120,6 @@ const filteredOrders = computed(() => {
   }
 })
 
-const handleClick = () => {
-  console.log('点击')
-  //
-  ElMessage.success({
-    message: '发货成功',
-    duration: 2000 // 延迟关闭，单位为毫秒
-  })
-}
-
 // 取消订单
 const handleCancel = async (row: any) => {
   const { number } = row
@@ -149,6 +140,7 @@ const handleCancel = async (row: any) => {
     console.log(e)
   }
 }
+
 // 退款
 const handleRefund = async (row: any) => {
   const { number, amount } = row
@@ -164,7 +156,6 @@ const handleRefund = async (row: any) => {
         message: '退款成功',
         duration: 2000 // 延迟关闭，单位为毫秒
       })
-
       // 在消息显示后，延迟调用 getOrderList
       setTimeout(() => {
         orderListStore.getOrderList({ admin: 1 })
@@ -174,6 +165,7 @@ const handleRefund = async (row: any) => {
     console.log(e)
   }
 }
+
 // 发货
 const handleDeliver = async (row: any) => {
   const { number } = row
@@ -184,7 +176,6 @@ const handleDeliver = async (row: any) => {
         message: '发货成功',
         duration: 2000 // 延迟关闭，单位为毫秒
       })
-
       // 在消息显示后，延迟调用 getOrderList
       setTimeout(() => {
         orderListStore.getOrderList({ admin: 1 })
@@ -196,12 +187,12 @@ const handleDeliver = async (row: any) => {
 }
 
 // 分页
-
 const pagedOrders = computed(() => {
   const start = (currentPage.value - 1) * pageSize.value
   const end = start + pageSize.value
   return filteredOrders.value.slice(start, end)
 })
+
 // 处理分页变化事件
 const handlePageChange = (page: number) => {
   currentPage.value = page
