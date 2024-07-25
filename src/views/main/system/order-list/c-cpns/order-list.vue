@@ -102,19 +102,20 @@ const getStatusText = (status: number) => {
 
 // 根据不同的 index 过滤订单数据
 const filteredOrders = computed(() => {
+  const orders = Array.isArray(orderListStore.orderList) ? orderListStore.orderList : []
   switch (props.index) {
     case '1':
-      return orderListStore.orderList
+      return orders
     case '2':
-      return orderListStore.orderList.filter((order) => order.status === 1)
+      return orders.filter((order) => order.status === 1)
     case '3':
-      return orderListStore.orderList.filter((order) => order.status === 2)
+      return orders.filter((order) => order.status === 2)
     case '4':
-      return orderListStore.orderList.filter((order) => order.status === 3)
+      return orders.filter((order) => order.status === 3)
     case '5':
-      return orderListStore.orderList.filter((order) => order.status === 4)
+      return orders.filter((order) => order.status === 4)
     case '6':
-      return orderListStore.orderList.filter((order) => order.status === 5)
+      return orders.filter((order) => order.status === 5)
     default:
       return []
   }
