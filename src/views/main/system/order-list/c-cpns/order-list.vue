@@ -29,6 +29,7 @@
               <el-button plain type="primary" @click="handleRefund(row)" v-if="row.status === 2"
                 >退款</el-button
               >
+              <el-button plain type="primary" @click="handleDetail(row)">详情</el-button>
             </div>
           </template>
         </TableList>
@@ -50,11 +51,74 @@
         </div>
       </template>
     </el-skeleton>
+    <!-- 订单详情抽屉 -->
+
+    <el-drawer v-model="drawerVisible" title="订单详情" :with-header="false">
+      <div class="content">
+        <div class="title">{{ drawerTitle }}</div>
+        <div class="order-details">
+          <div>
+            <span>订单状态</span>
+            <span>{{ getStatusText(selectedOrder?.status) }}</span>
+          </div>
+          <div>
+            <span>客户姓名</span>
+            <span>{{ selectedOrder?.address?.name }}</span>
+          </div>
+          <div>
+            <span>下单地址</span>
+            <span>{{ selectedOrder?.address?.city + selectedOrder?.address?.detailAddress }}</span>
+          </div>
+          <div>
+            <span>支付金额</span>
+            <span>¥ {{ selectedOrder?.amount }}</span>
+          </div>
+          <div v-if="selectedOrder?.payTime">
+            <span>支付时间</span>
+            <span>{{ selectedOrder?.payTime }}</span>
+          </div>
+        </div>
+        <!-- // 产品盒子列表详情 -->
+        <div v-if="selectedOrder?.productBoxList?.length > 0">
+          <div
+            class="product-box-list"
+            v-for="(boxItem, index) in selectedOrder.productBoxList"
+            :key="index"
+          >
+            <div class="left">
+              <div class="box-name">{{ boxItem?.name }}</div>
+              <div class="box-month" v-if="boxItem?.productBoxNumList?.length > 0">
+                {{ Number(boxItem?.unit) + 1 }}月装
+              </div>
+            </div>
+            <div class="center">
+              <img :src="boxItem?.image" alt="Product Image" />
+            </div>
+            <div v-if="boxItem?.productBoxNumList?.length > 0" class="right">
+              <div
+                v-for="(item, index) in boxItem?.productBoxNumList"
+                :key="index"
+                class="box-item-deail-list"
+              >
+                <div class="box-item-list">
+                  <span>{{ item?.name }}</span>
+                  <span>￥{{ item?.price }}/{{ item?.unitName }}</span>
+                  <span>数量{{ item?.num }}</span>
+                </div>
+              </div>
+            </div>
+            <div v-else>
+              <div>数量 {{ boxItem?.num }}</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </el-drawer>
   </div>
 </template>
 
 <script setup lang="ts">
-import { computed, onMounted, ref } from 'vue'
+import { computed, onMounted, ref, watch } from 'vue'
 import TableList from '@/components/table-list/table-list.vue'
 import Pagination from '@/components/pagination/pagination.vue'
 import useOrderListStore from '@/store/main/order-list/order-list'
@@ -71,7 +135,16 @@ const props = defineProps({
 onMounted(() => {
   orderListStore.getOrderList({ admin: 1 })
 })
+watch(
+  () => props.index,
+  () => {
+    orderListStore.getOrderList({ admin: 1 })
+  }
+)
 const orderListStore = useOrderListStore()
+const drawerVisible = ref<boolean>(false)
+const selectedOrder = ref<any>(null)
+const drawerTitle = ref('订单详情')
 // 分页相关数据
 const currentPage = ref<number>(1)
 const pageSize = ref<number>(10)
@@ -79,6 +152,7 @@ const pageSize = ref<number>(10)
 const columns = [
   { label: '商户单号/商户号', prop: 'number', width: '300' },
   { label: '交易单号/支付时间', prop: 'transactionId', width: '300' },
+  { label: '顺丰单号', prop: 'waybill', width: '300' },
   { label: '支付金额', prop: 'amount' },
   { label: '支付时间', prop: 'payTime' }
 ]
@@ -187,6 +261,13 @@ const handleDeliver = async (row: any) => {
   }
 }
 
+// 查看订单详情
+const handleDetail = (row: any) => {
+  console.log(row)
+  selectedOrder.value = row
+  drawerVisible.value = true
+}
+
 // 分页
 const pagedOrders = computed(() => {
   // 如果 filteredOrders 不是数组，返回空数组
@@ -218,10 +299,107 @@ const updatePageSize = (size: number) => {
 }
 </script>
 
-<style scoped>
+<style scoped lang="less">
 /* 添加你的样式 */
 .pagination {
   padding: 20px;
   background-color: #ffffff;
+}
+.title {
+  font-size: 20px;
+  font-weight: 700;
+  margin-bottom: 20px;
+}
+.order-details {
+  background-color: #fff;
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  max-width: 700px;
+  width: 100%;
+  margin: auto;
+}
+.order-details div {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 10px;
+}
+.order-details div:last-child {
+  margin-bottom: 0;
+}
+.order-details span {
+  color: #666;
+}
+
+.product-box-list {
+  display: flex;
+  align-items: center;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  padding: 16px;
+  margin-bottom: 16px;
+  background-color: #fff;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  transition: border-color 0.3s;
+  margin-top: 16px;
+  &:hover {
+    border-color: #bbb;
+  }
+
+  .left {
+    font-size: 18px;
+    font-weight: 400;
+    margin-bottom: 8px;
+    margin-right: 8px;
+    color: #666;
+    .box-month {
+      margin-top: 8px;
+    }
+  }
+
+  .center {
+    flex: 0 0 100px;
+    margin-right: 16px;
+
+    img {
+      width: 100%;
+      height: auto;
+      border-radius: 4px;
+      object-fit: cover;
+    }
+  }
+
+  .right {
+    flex: 1;
+
+    .box-item-deail-list {
+      margin-top: 12px;
+
+      .box-item-list {
+        display: flex;
+        justify-content: space-between;
+        padding: 8px 0;
+        border-bottom: 1px solid #eee;
+
+        p {
+          margin: 0;
+          font-size: 14px;
+          color: #333;
+        }
+
+        span {
+          font-size: 14px;
+          color: #666;
+          &:last-child {
+            margin-center: 8px;
+          }
+        }
+      }
+
+      &:last-child {
+        border-bottom: none;
+      }
+    }
+  }
 }
 </style>
