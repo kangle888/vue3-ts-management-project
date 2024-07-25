@@ -8,7 +8,12 @@
       :label="column.label"
       :width="column.width"
     />
-    <el-table-column label="操作" width="200">
+    <el-table-column label="状态" width="120">
+      <template #default="scope">
+        <slot name="status" :row="scope.row"></slot>
+      </template>
+    </el-table-column>
+    <el-table-column label="操作" width="260">
       <template #default="scope">
         <slot name="actions" :row="scope.row"></slot>
       </template>

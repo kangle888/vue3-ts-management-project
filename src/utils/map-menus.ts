@@ -7,7 +7,6 @@ function loadLocalRoutes() {
   const files: Record<string, any> = import.meta.glob('../router/main/**/*.ts', {
     eager: true
   })
-  console.log(files, 'files------------')
   // 1.2 遍历文件，动态添加路由
   for (const path in files) {
     const module = files[path]
@@ -26,7 +25,6 @@ export function mapMenusToRoutes(userMenus: any[]): RouteRecordRaw[] {
   const routes: RouteRecordRaw[] = []
 
   const _recurseGetRoute = (menus: any[], parentPath?: string) => {
-    console.log(menus, 'menus-------------------')
     for (const menu of menus) {
       if (menu.children) {
         // 如果有子菜单，递归调用自身
@@ -44,7 +42,6 @@ export function mapMenusToRoutes(userMenus: any[]): RouteRecordRaw[] {
         // 将第一个匹配的路由作为默认路由
         if (!firstMenu && route) {
           firstMenu = menu
-          console.log(firstMenu, 'firstMenu')
         }
       }
     }

@@ -55,9 +55,9 @@ import type { Plugin } from 'vite'
 // })
 
 export default defineConfig(({ mode }) => {
-  const isBuild = mode !== 'production'
+  const isBuild = mode === 'production'
   const viteEnv = {
-    VITE_USE_MOCK: true // Set this to false if you don't want to use mocks
+    VITE_USE_MOCK: false // Set this to false if you don't want to use mocks
   }
 
   return {
@@ -83,7 +83,7 @@ export default defineConfig(({ mode }) => {
       proxy: {
         '/api': {
           // 将匹配的请求路径代理到目标服务器
-          target: 'http://183.193.101.170:11000', // 目标服务器地址
+          target: 'http://10.1.200.22:12000', // 目标服务器地址
           changeOrigin: true, // 改变请求的源
           rewrite: (path) => path.replace(/^\/api/, '') // 重写请求路径
         }

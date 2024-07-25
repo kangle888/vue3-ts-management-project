@@ -4,25 +4,49 @@
       <el-row :gutter="20">
         <el-col :span="8">
           <el-form-item label="商户单号" label-width="80px" prop="transactionId">
-            <el-input v-model="searchForm.transactionId" style="width: 100%" placeholder="填写商户单号" />
+            <el-input
+              v-model="searchForm.transactionId"
+              style="width: 100%"
+              placeholder="填写商户单号"
+            />
           </el-form-item>
         </el-col>
         <el-col :span="8">
           <el-form-item label="交易单号" label-width="80px" prop="merchantTradeNo">
-            <el-input v-model="searchForm.merchantTradeNo" style="width: 100%" placeholder="填写交易单号" />
+            <el-input
+              v-model="searchForm.merchantTradeNo"
+              style="width: 100%"
+              placeholder="填写交易单号"
+            />
           </el-form-item>
         </el-col>
         <el-col :span="8">
           <el-form-item label="支付时间" label-width="80px" prop="status">
-            <el-select v-model="searchForm.time" @change="handleTimeChange" placeholder="选择支付时间段" style="width: 100%">
-              <el-option v-for="item in timeOptions" :key="item.value" :label="item.label" :value="item.value" />
+            <el-select
+              v-model="searchForm.time"
+              @change="handleTimeChange"
+              placeholder="选择支付时间段"
+              style="width: 100%"
+            >
+              <el-option
+                v-for="item in timeOptions"
+                :key="item.value"
+                :label="item.label"
+                :value="item.value"
+              />
             </el-select>
           </el-form-item>
         </el-col>
         <el-col :span="8">
           <el-form-item label="时间段" label-width="80px" prop="timeRange">
-            <el-date-picker v-model="searchForm.timeRange" style="width: 100%" type="daterange" range-separator="—"
-              start-placeholder="开始时间" end-placeholder="结束时间" />
+            <el-date-picker
+              v-model="searchForm.timeRange"
+              style="width: 100%"
+              type="daterange"
+              range-separator="—"
+              start-placeholder="开始时间"
+              end-placeholder="结束时间"
+            />
           </el-form-item>
         </el-col>
       </el-row>
@@ -35,13 +59,13 @@
 </template>
 
 <script setup lang="ts">
-import type { ElForm } from 'element-plus'
-import { reactive, ref, } from 'vue'
+import { ElMessage, type ElForm } from 'element-plus'
+import { reactive, ref } from 'vue'
 import useOrderListStore from '@/store/main/order-list/order-list'
-import { pa } from 'element-plus/es/locales.mjs';
+
 type TimeOption = {
-  value: string;
-  label: string;
+  value: string
+  label: string
 }
 type DateRange = [Date, Date] | []
 const searchRef = ref<InstanceType<typeof ElForm>>()
@@ -95,7 +119,6 @@ const handleTimeChange = (value: string): void => {
       endDate = null as any
   }
   searchForm.timeRange = startDate ? [startDate, endDate] : []
-
 }
 
 const ResetFormContent = () => {
@@ -103,15 +126,20 @@ const ResetFormContent = () => {
 }
 // 搜索功能
 const searchOrderList = () => {
+  // const params = {
+  //   transactionId: searchForm.transactionId,
+  //   merchantTradeNo: searchForm.merchantTradeNo,
+  //   timeRange: searchForm.timeRange,
+  //   page: 1,
+  //   pageSize: 10
+  // }
+  // orderListStore.getOrderList(params)
+  // 提示当前功能未开发，敬请期待~~~
 
-  const params = {
-    transactionId: searchForm.transactionId,
-    merchantTradeNo: searchForm.merchantTradeNo,
-    timeRange: searchForm.timeRange,
-    page: 1,
-    pageSize: 10
-  }
-  orderListStore.getOrderList(params)
+  ElMessage({
+    message: '当前功能暂未开放，敬请期待~~~',
+    type: 'warning'
+  })
 }
 </script>
 

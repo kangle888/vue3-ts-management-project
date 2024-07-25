@@ -3,11 +3,11 @@
     <el-menu :default-active="activeIndex" class="el-menu-demo" mode="horizontal" background-color="#ffffff"
       text-color="#737373" active-text-color="#353535" @select="handleSelect">
       <el-menu-item index="1">全部</el-menu-item>
-      <el-menu-item index="2">待发货</el-menu-item>
-      <el-menu-item index="3">48小时待发货</el-menu-item>
-      <el-menu-item index="4">超时未发货</el-menu-item>
-      <el-menu-item index="5">已发货</el-menu-item>
-      <el-menu-item index="6">未发货</el-menu-item>
+      <el-menu-item index="2">待付款</el-menu-item>
+      <el-menu-item index="3">待发货</el-menu-item>
+      <el-menu-item index="4">待收货</el-menu-item>
+      <el-menu-item index="5">售后</el-menu-item>
+      <el-menu-item index="6">已完成</el-menu-item>
     </el-menu>
     <OrderList :index="activeIndex" />
   </div>

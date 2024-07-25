@@ -22,7 +22,7 @@
             :size="30"
             src="https://upload.jianshu.io/users/upload_avatars/1102036/c3628b478f06.jpeg"
           />
-          <span class="name">coderwhy</span>
+          <span class="name">番茄五方</span>
         </span>
         <template #dropdown>
           <el-dropdown-menu>

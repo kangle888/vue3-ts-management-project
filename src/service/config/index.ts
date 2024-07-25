@@ -11,9 +11,9 @@
 
 let BASE_URL = ''
 if (import.meta.env.PROD) {
-  BASE_URL = '/mock'
+  BASE_URL = 'http://10.1.200.22:12000'
 } else {
-  BASE_URL = '/mock'
+  BASE_URL = '/api'
 }
 
 console.log(BASE_URL)

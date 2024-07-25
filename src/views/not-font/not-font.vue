@@ -31,18 +31,22 @@
   </div>
 </template>
 
-<script>
-export default {
-  name: 'Page404',
-  computed: {
-    message() {
-      return '找不到网页！'
-    }
-  },
-  methods: {
-    goHome() {
-      window.location.href = '/'
-    }
+<script setup lang="ts">
+import { ref } from 'vue'
+import { localCache } from '@/utils/cache'
+import { useRouter } from 'vue-router'
+
+const message = ref('页面不存在')
+const router = useRouter()
+const goHome = () => {
+  const token = localCache.getCache('login_token')
+  console.log(token)
+  if (token) {
+    // 去mian页面 有token
+    router.push('/main')
+  } else {
+    // 去login页面 没有token
+    window.location.href = '/login'
   }
 }
 </script>

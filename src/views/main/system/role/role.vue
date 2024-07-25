@@ -1,5 +1,5 @@
 <template>
-  <div>角色</div>
+  <div>功能快马加鞭开发中~~敬请期待！</div>
 </template>
 
 <script setup lang="ts"></script>
