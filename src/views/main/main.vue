@@ -124,7 +124,7 @@ const scrollToSection = (sectionId: string) => {
   display: flex;
   align-items: center;
   background-color: #fff8ee;
-  position: fixed;
+  position: sticky;
   top: 0;
   left: 0;
   width: 100%;
@@ -183,10 +183,13 @@ const scrollToSection = (sectionId: string) => {
   }
   .more {
     display: block;
-    width: 80px;
-    height: 80px;
-    margin-right: 20px;
+    width: 45px;
+    height: 45px;
+    margin-right: 30px;
   }
+  /* .item-zero {
+    margin-top: 107px;
+  } */
 }
 
 @media (max-width: 480px) {
@@ -202,19 +205,21 @@ const scrollToSection = (sectionId: string) => {
   }
   .more {
     display: block;
-    width: 60px;
-    height: 60px;
-    margin-right: 20px;
+    width: 35px;
+    height: 35px;
+    margin-right: 30px;
   }
+  /* .item-zero {
+    margin-top: 78px;
+  } */
 }
 
 .item-eight {
   position: relative;
-  overflow: hidden; /* Hide overflow content */
+  z-index: -10;
 }
 
 .item-eight-bg {
-  position: relative;
   width: 100%; /* Full width */
 }
 
@@ -250,6 +255,7 @@ const scrollToSection = (sectionId: string) => {
 .svg-container {
   position: relative;
   cursor: pointer;
+  z-index: 1002;
 }
 
 .dropdown-menu {
@@ -259,8 +265,8 @@ const scrollToSection = (sectionId: string) => {
   background-color: white;
   border: 1px solid #ccc;
   box-shadow: 0 2px 5px rgba(0, 0, 0, 0.15);
-  z-index: 1000;
-  display: none; /* Initially hidden */
+  z-index: 1001;
+  display: none;
   border-radius: 3px;
 }
 
@@ -270,7 +276,7 @@ const scrollToSection = (sectionId: string) => {
 }
 
 .dropdown-item:hover {
-  background-color: #f0f0f0;
+  background-color: #fff8ee;
 }
 
 .svg-container .dropdown-menu {
